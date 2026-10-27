@@ -1,40 +1,40 @@
 import { Tabs } from "expo-router";
-import { SymbolView } from "expo-symbols";
+import { Ionicons } from "@react-native-vector-icons/ionicons";
 
 export default function TabLayout() {
   return (
-    <Tabs>
+    <Tabs
+      screenOptions={{
+        tabBarActiveTintColor: "#88718E",
+        tabBarInactiveTintColor: "#8E8E93",
+        tabBarShowLabel: false,
+        tabBarStyle: {
+          height: 80,
+          paddingTop: 6,
+        },
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
-          title: "Tab One",
           tabBarIcon: ({ color }) => (
-            <SymbolView
-              name={{
-                ios: "chevron.left.forwardslash.chevron.right",
-                android: "code",
-                web: "code",
-              }}
-              tintColor={color}
-              size={28}
-            />
+            <Ionicons name="home" color={color} size={24} />
           ),
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="leaderboard"
         options={{
-          title: "Tab Two",
           tabBarIcon: ({ color }) => (
-            <SymbolView
-              name={{
-                ios: "chevron.left.forwardslash.chevron.right",
-                android: "code",
-                web: "code",
-              }}
-              tintColor={color}
-              size={28}
-            />
+            <Ionicons name="trophy" color={color} size={24} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="person" color={color} size={24} />
           ),
         }}
       />

@@ -4,7 +4,7 @@
     "slug": "goop",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "", //TODO: Insert icon
     "scheme": "goop",
     "userInterfaceStyle": "automatic",
     "ios": {
@@ -13,16 +13,16 @@
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/images/android-icon-foreground.png",
-        "backgroundImage": "./assets/images/android-icon-background.png",
-        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+        "foregroundImage": "", //TODO: Insert icon
+        "backgroundImage": "", //TODO: Insert icon
+        "monochromeImage": "" //TODO: Insert icon
       },
       "predictiveBackGestureEnabled": false
     },
     "web": {
       "bundler": "metro",
       "output": "server",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "" //TODO: Insert icon
     },
     "plugins": [
       "expo-router",
