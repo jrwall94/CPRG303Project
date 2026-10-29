@@ -3,24 +3,32 @@ import {
   View,
   StyleSheet,
   Image,
+  Pressable,
   type StyleProp,
   type ViewStyle,
   type ImageSource,
 } from "react-native";
 
+import { Href, Link } from "expo-router";
+
 type GameProps = {
   title: string;
   picture: ImageSource;
+  value: string;
   style?: StyleProp<ViewStyle>;
 };
 
-export default function Game({ title, picture, style }: GameProps) {
+export default function GameCard({ title, value, picture, style }: GameProps) {
   return (
     <View style={[styles.card, style]}>
-      <View style={styles.content}>
-        <Image source={picture} style={styles.image} />
-        <Text style={styles.title}>{title}</Text>
-      </View>
+      <Link href={`./${value}`} asChild>
+        <Pressable>
+          <View style={styles.content}>
+            <Image source={picture} style={styles.image} />
+            <Text style={styles.title}>{title}</Text>
+          </View>
+        </Pressable>
+      </Link>
     </View>
   );
 }

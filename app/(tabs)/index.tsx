@@ -1,25 +1,29 @@
 import { ScrollView, Text, View, StyleSheet } from "react-native";
-import { Stack } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import Game from "@/components/game";
+import GameCard from "@/components/gameCard";
+import TabHeader from "@/components/tabHeader";
 
 export default function TabOneScreen() {
   const gameList = [
     {
       title: "Game 1",
+      value: "game1",
       picture: require("@/assets/images/placeholder-400x300.png"),
     },
     {
       title: "Game 2",
+      value: "game2",
       picture: require("@/assets/images/placeholder-400x300.png"),
     },
     {
       title: "Game 3",
+      value: "game3",
       picture: require("@/assets/images/placeholder-400x300.png"),
     },
     {
       title: "Game 4",
+      value: "game4",
       picture: require("@/assets/images/placeholder-400x300.png"),
     },
   ];
@@ -27,24 +31,21 @@ export default function TabOneScreen() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.screen}>
-        <Stack.Screen options={{ headerShown: false }} />
-        <View style={styles.header}>
-          <Text style={styles.title}>GOOP</Text>
-        </View>
+        <TabHeader />
         <ScrollView
           style={styles.container}
           showsVerticalScrollIndicator={false}
         >
           <View style={styles.sectionHeading}>
-            <Text style={styles.eyebrow}>EXPLORE</Text>
             <Text style={styles.sectionTitle}>Choose a game to play</Text>
           </View>
           <View style={styles.list}>
             {gameList.map((game) => (
-              <Game
+              <GameCard
                 key={game.title}
                 title={game.title}
                 picture={game.picture}
+                value={game.value}
                 style={styles.game}
               />
             ))}
@@ -60,13 +61,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F8F5F8",
   },
-  header: {
-    backgroundColor: "#4A3548",
-    paddingTop: 15,
-    paddingBottom: 15,
-    textAlign: "center",
-    alignItems: "center",
-  },
   container: {
     flex: 1,
     paddingHorizontal: 20,
@@ -75,24 +69,6 @@ const styles = StyleSheet.create({
   },
   sectionHeading: {
     marginBottom: 18,
-  },
-  title: {
-    color: "#FFFFFF",
-    fontSize: 32,
-    fontWeight: "800",
-    letterSpacing: 3,
-  },
-  subtitle: {
-    color: "#E8DCE7",
-    fontSize: 15,
-    marginTop: 4,
-  },
-  eyebrow: {
-    color: "#8C7284",
-    fontSize: 11,
-    fontWeight: "700",
-    letterSpacing: 1.8,
-    marginBottom: 5,
   },
   sectionTitle: {
     color: "#342B36",
