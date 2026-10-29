@@ -31,7 +31,7 @@ export default function TabOneScreen() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.screen}>
-        <TabHeader />
+        <TabHeader title={"GOOP"} />
         <ScrollView
           style={styles.container}
           showsVerticalScrollIndicator={false}

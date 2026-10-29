@@ -1,12 +1,12 @@
 import { View, Text, StyleSheet } from "react-native";
 import { Stack } from "expo-router";
 
-export default function TabHeader() {
+export default function TabHeader({ title }: { title: string }) {
   return (
     <View>
       <Stack.Screen options={{ headerShown: false }} />
       <View style={styles.header}>
-        <Text style={styles.title}>GOOP</Text>
+        <Text style={styles.title}>{title}</Text>
       </View>
     </View>
   );
