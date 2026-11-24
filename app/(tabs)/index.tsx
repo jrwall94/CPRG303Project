@@ -1,87 +1,118 @@
-import { ScrollView, Text, View, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  useWindowDimensions,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import TabHeader from "../../components/tabHeader";
+import GameCard from "../../components/gameCard";
+import { COLORS } from "../../constants/colors";
+import { router } from "expo-router";
 
-import GameCard from "@/components/gameCard";
-import TabHeader from "@/components/tabHeader";
+//TODO: Change game names to be more descriptive and add the new names here
+const GAME_ROUTES = {
+  1: "/game1",
+  2: "/game2",
+  3: "/game3",
+  4: "/game4",
+} as const;
 
-export default function TabOneScreen() {
-  const gameList = [
-    {
-      title: "Game 1",
-      value: "game1",
-      picture: require("@/assets/images/placeholder-400x300.png"),
-    },
-    {
-      title: "Game 2",
-      value: "game2",
-      picture: require("@/assets/images/placeholder-400x300.png"),
-    },
-    {
-      title: "Game 3",
-      value: "game3",
-      picture: require("@/assets/images/placeholder-400x300.png"),
-    },
-    {
-      title: "Game 4",
-      value: "game4",
-      picture: require("@/assets/images/placeholder-400x300.png"),
-    },
-  ];
+//TODO: Replace the emojis and color gradients with images from the actual games
+const games = [
+  {
+    id: 1,
+    title: "Game 1",
+    emoji: "🎮",
+    colors: ["#8436CB", "#535EEB", "#08B5BC"] as const,
+  },
+  {
+    id: 2,
+    title: "Game 2",
+    emoji: "🕹️",
+    colors: ["#00AFB5", "#426FE1", "#8038C6"] as const,
+  },
+  {
+    id: 3,
+    title: "Game 3",
+    emoji: "🎯",
+    colors: ["#DC528B", "#A12CB2", "#555CEB"] as const,
+  },
+  {
+    id: 4,
+    title: "Game 4",
+    emoji: "🧩",
+    colors: ["#F5A342", "#E45B82", "#9231C9"] as const,
+  },
+] as const;
+
+export default function HomeScreen() {
+  const { width } = useWindowDimensions();
+
+  const cardWidth = (width - 64 - 16) / 2;
+
+  const handleGamePress = (gameId: keyof typeof GAME_ROUTES) => {
+    router.navigate(GAME_ROUTES[gameId]);
+  };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View style={styles.screen}>
-        <TabHeader title={"GOOP"} />
-        <ScrollView
-          style={styles.container}
-          showsVerticalScrollIndicator={false}
-        >
-          <View style={styles.sectionHeading}>
-            <Text style={styles.sectionTitle}>Choose a game to play</Text>
-          </View>
-          <View style={styles.list}>
-            {gameList.map((game) => (
+    <SafeAreaView style={styles.container} edges={["left", "right"]}>
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        <TabHeader title="GOOP" />
+
+        {/* Main Content */}
+        <View style={styles.content}>
+          <Text style={styles.heading}>Choose your game</Text>
+
+          {/* Game Grid */}
+          <View style={styles.grid}>
+            {games.map((game) => (
               <GameCard
-                key={game.title}
+                key={game.id}
                 title={game.title}
-                picture={game.picture}
-                value={game.value}
-                style={styles.game}
+                emoji={game.emoji}
+                colors={game.colors}
+                onPress={() => handleGamePress(game.id)}
+                style={{ width: cardWidth }}
               />
             ))}
           </View>
-        </ScrollView>
-      </View>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: "#F8F5F8",
-  },
   container: {
     flex: 1,
-    paddingHorizontal: 20,
-    paddingTop: 24,
-    paddingBottom: 28,
+    backgroundColor: COLORS.screenBackground,
   },
-  sectionHeading: {
-    marginBottom: 18,
+  scroll: {
+    flex: 1,
   },
-  sectionTitle: {
-    color: "#342B36",
-    fontSize: 21,
-    fontWeight: "700",
+  scrollContent: {
+    paddingBottom: 24,
   },
-  list: {
+  content: {
+    paddingHorizontal: 32,
+    paddingTop: 34,
+  },
+  heading: {
+    fontSize: 28,
+    fontWeight: "900",
+    color: COLORS.heading,
+    marginBottom: 30,
+  },
+  grid: {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-between",
     rowGap: 16,
-  },
-  game: {
-    width: "48%",
   },
 });

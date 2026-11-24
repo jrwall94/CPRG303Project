@@ -2,63 +2,84 @@ import {
   Text,
   View,
   StyleSheet,
-  Image,
   Pressable,
   type StyleProp,
   type ViewStyle,
-  type ImageSource,
 } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import { COLORS } from "../constants/colors";
 
-import { Href, Link } from "expo-router";
-
+//TODO: Replace the emoji/colors with an image to display for the game
 type GameProps = {
   title: string;
-  picture: ImageSource;
-  value: string;
+  emoji: string;
+  colors: readonly [string, string, string];
+  onPress: () => void;
   style?: StyleProp<ViewStyle>;
 };
 
-export default function GameCard({ title, value, picture, style }: GameProps) {
+export default function GameCard({
+  title,
+  emoji,
+  colors,
+  onPress,
+  style,
+}: GameProps) {
   return (
-    <View style={[styles.card, style]}>
-      <Link href={`./${value}`} asChild>
-        <Pressable>
-          <View style={styles.content}>
-            <Image source={picture} style={styles.image} />
-            <Text style={styles.title}>{title}</Text>
-          </View>
-        </Pressable>
-      </Link>
-    </View>
+    <Pressable
+      onPress={onPress}
+      style={({ pressed }) => [
+        styles.card,
+        style,
+        pressed && styles.cardPressed,
+      ]}
+    >
+      <LinearGradient
+        colors={colors}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={styles.image}
+      >
+        <Text style={styles.emoji}>{emoji}</Text>
+      </LinearGradient>
+
+      <View style={styles.cardFooter}>
+        <Text style={styles.title}>{title}</Text>
+      </View>
+    </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 18,
+    borderRadius: 19,
     overflow: "hidden",
+    backgroundColor: "#EEF2FF",
     borderWidth: 1,
-    borderColor: "#EEE7EF",
-    shadowColor: "#342536",
-    shadowOffset: { width: 0, height: 5 },
-    shadowOpacity: 0.1,
-    shadowRadius: 10,
-    elevation: 3,
+    borderColor: "#DDE5FF",
   },
   image: {
-    width: 200,
-    height: 200,
-    resizeMode: "cover",
+    width: "100%",
+    aspectRatio: 1.23,
+    justifyContent: "center",
+    alignItems: "center",
   },
-  content: {
-    paddingBottom: 13,
+  emoji: {
+    fontSize: 76,
+  },
+  cardFooter: {
+    height: 47,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#EEF2FF",
   },
   title: {
-    color: "#342B36",
-    fontSize: 15,
-    fontWeight: "700",
-    marginHorizontal: 13,
-    marginTop: 11,
+    fontSize: 18,
+    fontWeight: "900",
+    color: COLORS.heading,
+  },
+  cardPressed: {
+    opacity: 0.8,
+    transform: [{ scale: 0.97 }],
   },
 });

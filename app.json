@@ -4,7 +4,7 @@
     "slug": "goop",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "", //TODO: Insert icon
+    "icon": "",
     "scheme": "goop",
     "userInterfaceStyle": "automatic",
     "ios": {
@@ -13,16 +13,16 @@
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
-        "foregroundImage": "", //TODO: Insert icon
-        "backgroundImage": "", //TODO: Insert icon
-        "monochromeImage": "" //TODO: Insert icon
+        "foregroundImage": "",
+        "backgroundImage": "",
+        "monochromeImage": ""
       },
       "predictiveBackGestureEnabled": false
     },
     "web": {
       "bundler": "metro",
       "output": "server",
-      "favicon": "" //TODO: Insert icon
+      "favicon": ""
     },
     "plugins": [
       "expo-router",
@@ -33,7 +33,8 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
-      ]
+      ],
+      "@react-native-vector-icons/ionicons"
     ],
     "experiments": {
       "typedRoutes": true
