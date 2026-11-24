@@ -9,12 +9,18 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@react-native-vector-icons/ionicons";
+import { router, useLocalSearchParams } from "expo-router";
 import TabHeader from "../../components/tabHeader";
 import { COLORS } from "../../constants/colors";
 
 //TODO: Get the games and scores from the database, then delete mock data
 const games = ["Game 1", "Game 2", "Game 3", "Game 4"] as const;
 type Game = (typeof games)[number];
+
+function getGameFromParam(value: string | string[] | undefined): Game | undefined {
+  const game = Array.isArray(value) ? value[0] : value;
+  return games.find((candidate) => candidate === game);
+}
 
 type PlayerScore = {
   name: string;
@@ -60,7 +66,8 @@ const scoresByGame: Record<Game, PlayerScore[]> = {
 export default function LeaderboardScreen() {
   const { width } = useWindowDimensions();
 
-  const [selectedGame, setSelectedGame] = useState<Game>("Game 1");
+  const { game: gameParam } = useLocalSearchParams<{ game?: string }>();
+  const selectedGame = getGameFromParam(gameParam) ?? "Game 1";
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const players = [...scoresByGame[selectedGame]]
@@ -131,7 +138,7 @@ export default function LeaderboardScreen() {
                   key={game}
                   style={styles.dropdownItem}
                   onPress={() => {
-                    setSelectedGame(game);
+                    router.setParams({ game });
                     setDropdownOpen(false);
                   }}
                 >

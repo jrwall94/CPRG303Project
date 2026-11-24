@@ -41,7 +41,12 @@ export default function GameHeader({ title }: GameHeaderProps) {
           <Pressable
             accessibilityRole="button"
             accessibilityLabel="Open leaderboard"
-            onPress={() => router.navigate("/leaderboard")}
+            onPress={() =>
+              router.navigate({
+                pathname: "/leaderboard",
+                params: { game: title },
+              })
+            }
             style={({ pressed }) => [
               styles.controlButton,
               pressed && styles.pressed,
